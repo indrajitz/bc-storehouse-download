@@ -10,13 +10,14 @@ straight into Cinema 4D or Houdini.
 
 ## Install
 
-1. Download `BC-Storehouse-<version>-windows.zip` from the latest release.
-2. Unzip it and open the `BC Storehouse` folder inside.
-3. Double-click `Install.bat` (no admin rights needed), or run
-   `BC Storehouse.exe` from the folder.
+Download `BC-Storehouse-Setup-<version>.exe` from the latest release and run
+it. No admin rights needed; it adds BC Storehouse to the Start menu, and
+Windows Settings › Apps removes it. `/VERYSILENT` installs with no questions.
+Rather not install? The portable `BC-Storehouse-<version>-windows.zip` runs
+from any folder.
 
-Coming from 1.25? Close the old version first; `Install.bat` replaces it in
-place, and your library and tags are kept. Update everyone on a shared library
+Coming from 1.25? Setup replaces it in place, and your library and tags are
+kept. Update everyone on a shared library
 together: versions before 1.52 throw away what newer versions record.
 
 Windows 10 or 11, 64-bit. The app is not code-signed yet, so Windows may say

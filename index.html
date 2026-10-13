@@ -44,21 +44,22 @@
         <strong id="dl">Version 2.0.0</strong>
         <span>13 October 2026</span>
       </div>
-      <a class="button" href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.0.0/BC-Storehouse-2.0.0-windows.zip">
+      <a class="button" href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.0.0/BC-Storehouse-Setup-2.0.0.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
         Download for Windows
       </a>
       <dl class="facts">
-        <dt>File</dt><dd class="mono">BC-Storehouse-2.0.0-windows.zip</dd>
-        <dt>Size</dt><dd>110 MB</dd>
+        <dt>File</dt><dd class="mono">BC-Storehouse-Setup-2.0.0.exe</dd>
+        <dt>Size</dt><dd>77 MB</dd>
         <dt>Needs</dt><dd>Windows 10 or 11, 64-bit</dd>
         <dt>Admin rights</dt><dd>Not needed</dd>
       </dl>
       <div class="sha">SHA-256
-        <code>130894d5b76501291fdbc5c1e91c0b180d1b6e103bda7fa1fc23305b37a791e9</code>
+        <code>ac8e29fbc6e22ae9b02a9617bd850c1f287cb085ce7a42132da4a5854b46bc55</code>
       </div>
       <div class="more">
-        <a href="changelog.html">Full changelog</a>
+        <a href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.0.0/BC-Storehouse-2.0.0-windows.zip">Portable zip</a>
+        <a href="changelog.html">Changelog</a>
         <a href="https://github.com/indrajitz/bc-storehouse-download/releases">All releases</a>
       </div>
     </aside>
@@ -67,7 +68,7 @@
   <section id="install">
     <div class="wrap">
       <h2>Install</h2>
-      <p class="sub">The same download for everyone. Only the library you point it at is different.</p>
+      <p class="sub">One Setup for everyone: no admin rights, about a minute. Only the library you point it at is different.</p>
 
       <div class="notice" role="note">
         <div>
@@ -81,9 +82,8 @@
           <h3>In the studio</h3>
           <p class="who">You have the shared library on N:</p>
           <ol class="steps">
-            <li><span><strong>Close BC Storehouse</strong> if the old version is open.</span></li>
-            <li><span><strong>Unzip the download</strong> and open the <code>BC Storehouse</code> folder inside.</span></li>
-            <li><span><strong>Double-click Install.bat.</strong> It replaces the old version in place, so your Start menu and desktop shortcuts open 2.0.</span></li>
+            <li><span><strong>Run the Setup</strong> and press Install. If the old version is open, Setup offers to close it.</span></li>
+            <li><span><strong>It replaces 1.25 in place</strong>, so your Start menu and desktop shortcuts open 2.0.</span></li>
             <li><span><strong>Open it.</strong> Your library, tags, kits and notes are where you left them. If it asks for a library, choose the studio library on N:.</span></li>
             <li><span><strong>Settings: install the Cinema 4D and Houdini helpers again.</strong> Sends work differently in 2.0, and the old helpers don't report back.</span></li>
           </ol>
@@ -92,8 +92,7 @@
           <h3>Outside the studio</h3>
           <p class="who">You'll keep your own library.</p>
           <ol class="steps">
-            <li><span><strong>Unzip the download</strong> and open the <code>BC Storehouse</code> folder inside.</span></li>
-            <li><span><strong>Double-click Install.bat</strong>, or just run <code>BC Storehouse.exe</code> from the folder if you'd rather not install.</span></li>
+            <li><span><strong>Run the Setup</strong> and press Install. It adds BC Storehouse to the Start menu and opens it.</span></li>
             <li><span><strong>Choose a library folder.</strong> Use an empty folder to start, or one you already have. Nothing in it is moved or renamed until you import.</span></li>
             <li><span><strong>Say yes to the picture model</strong> (373 MB, asked once). It comes from Hugging Face and is checked byte for byte before use. Without it, tagging works from names only; you can get it later in Settings › Import &amp; tagging.</span></li>
             <li><span><strong>Settings: install the Cinema 4D and Houdini helpers</strong> to send assets into your scenes.</span></li>
@@ -101,7 +100,9 @@
         </div>
       </div>
 
-      <p class="both"><strong>"Windows protected your PC"?</strong> The app isn't code-signed yet. Choose <em>More info</em>, then <em>Run anyway</em>; the publisher shown is Indra – Builders Club. To remove it, run <code>Uninstall.bat</code>; your library and its index are left alone.</p>
+      <p class="both"><strong>"Windows protected your PC"?</strong> The Setup isn't code-signed yet. Choose <em>More info</em>, then <em>Run anyway</em>.</p>
+      <p class="both"><strong>Updating later:</strong> run the newer Setup over it. <strong>Removing it:</strong> Windows Settings › Apps › BC Storehouse; your library and its index are left alone.</p>
+      <p class="both"><strong>Many machines at once:</strong> <code>BC-Storehouse-Setup-2.0.0.exe /VERYSILENT</code> installs for the signed-in user with no questions. <strong>Rather not install?</strong> The <a href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.0.0/BC-Storehouse-2.0.0-windows.zip">portable zip</a> (110 MB) runs from any folder.</p>
     </div>
   </section>
 
