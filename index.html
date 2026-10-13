@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BC Storehouse</title>
+<meta name="description" content="Download BC Storehouse 2.0 for Windows: the studio asset library for materials, HDRIs, models, setups, HDAs and courses, with sends to Cinema 4D and Houdini.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <img src="mark.png" alt="">
+    <a class="name" href="./">BC Storehouse</a>
+    <nav>
+      <a href="#install">Install</a>
+      <a href="#new" class="wide">What's new</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Studio asset library · Windows</div>
+      <h1>Every material, HDRI and model, <span>one click from Cinema&nbsp;4D and Houdini.</span></h1>
+      <p class="lede">BC Storehouse keeps the studio's materials, textures, HDRIs, models, setups, HDAs and courses in one library. Find things by name, by tag or by how they look, then send them straight into the scene.</p>
+      <div class="apps" aria-label="Works with">
+        <span class="chip">Cinema 4D</span>
+        <span class="chip">Houdini</span>
+        <span class="chip">Redshift</span>
+        <span class="chip">USD</span>
+      </div>
+    </div>
+
+    <aside class="get" aria-labelledby="dl">
+      <div class="ver">
+        <strong id="dl">Version 2.0.0</strong>
+        <span>13 October 2026</span>
+      </div>
+      <a class="button" href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.0.0/BC-Storehouse-2.0.0-windows.zip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download for Windows
+      </a>
+      <dl class="facts">
+        <dt>File</dt><dd class="mono">BC-Storehouse-2.0.0-windows.zip</dd>
+        <dt>Size</dt><dd>110 MB</dd>
+        <dt>Needs</dt><dd>Windows 10 or 11, 64-bit</dd>
+        <dt>Admin rights</dt><dd>Not needed</dd>
+      </dl>
+      <div class="sha">SHA-256
+        <code>130894d5b76501291fdbc5c1e91c0b180d1b6e103bda7fa1fc23305b37a791e9</code>
+      </div>
+      <div class="more">
+        <a href="changelog.html">Full changelog</a>
+        <a href="https://github.com/indrajitz/bc-storehouse-download/releases">All releases</a>
+      </div>
+    </aside>
+  </div>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install</h2>
+      <p class="sub">The same download for everyone. Only the library you point it at is different.</p>
+
+      <div class="notice" role="note">
+        <div>
+          <h3>Coming from 1.25? Update everyone on a shared library together.</h3>
+          <p>Versions before 1.52 throw away what newer versions record when they save an asset, including where each tag came from and its undo history. Once one person moves to 2.0, nobody else should keep editing that library with 1.25.</p>
+        </div>
+      </div>
+
+      <div class="paths">
+        <div class="path">
+          <h3>In the studio</h3>
+          <p class="who">You have the shared library on N:</p>
+          <ol class="steps">
+            <li><span><strong>Close BC Storehouse</strong> if the old version is open.</span></li>
+            <li><span><strong>Unzip the download</strong> and open the <code>BC Storehouse</code> folder inside.</span></li>
+            <li><span><strong>Double-click Install.bat.</strong> It replaces the old version in place, so your Start menu and desktop shortcuts open 2.0.</span></li>
+            <li><span><strong>Open it.</strong> Your library, tags, kits and notes are where you left them. If it asks for a library, choose the studio library on N:.</span></li>
+            <li><span><strong>Settings: install the Cinema 4D and Houdini helpers again.</strong> Sends work differently in 2.0, and the old helpers don't report back.</span></li>
+          </ol>
+        </div>
+        <div class="path">
+          <h3>Outside the studio</h3>
+          <p class="who">You'll keep your own library.</p>
+          <ol class="steps">
+            <li><span><strong>Unzip the download</strong> and open the <code>BC Storehouse</code> folder inside.</span></li>
+            <li><span><strong>Double-click Install.bat</strong>, or just run <code>BC Storehouse.exe</code> from the folder if you'd rather not install.</span></li>
+            <li><span><strong>Choose a library folder.</strong> Use an empty folder to start, or one you already have. Nothing in it is moved or renamed until you import.</span></li>
+            <li><span><strong>Say yes to the picture model</strong> (373 MB, asked once). It comes from Hugging Face and is checked byte for byte before use. Without it, tagging works from names only; you can get it later in Settings › Import &amp; tagging.</span></li>
+            <li><span><strong>Settings: install the Cinema 4D and Houdini helpers</strong> to send assets into your scenes.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <p class="both"><strong>"Windows protected your PC"?</strong> The app isn't code-signed yet. Choose <em>More info</em>, then <em>Run anyway</em>; the publisher shown is Indra – Builders Club. To remove it, run <code>Uninstall.bat</code>; your library and its index are left alone.</p>
+    </div>
+  </section>
+
+  <section id="new">
+    <div class="wrap">
+      <h2>What's new since 1.25</h2>
+      <p class="sub">Forty-two releases since 25 September, in one download. The <a href="changelog.html">changelog</a> has every one of them.</p>
+
+      <div class="news">
+        <div>
+          <h3>A new window</h3>
+          <ul>
+            <li><strong>Rebuilt in Qt</strong> to the studio's design. It opens in about a second, and a second click brings the open window forward.</li>
+            <li><strong>Quick look:</strong> <kbd>Space</kbd> shows a big picture, the arrow keys go through the grid, <kbd>C</kbd> or <kbd>H</kbd> sends.</li>
+            <li><kbd>Ctrl</kbd> <kbd>K</kbd> goes to anything: a category, a kit, a page or an action.</li>
+            <li>Opens where you left off. Grid or list, compact tiles, and hover buttons to pin and send.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Importing</h3>
+          <ul>
+            <li><strong>Drop a zip</strong>, even one with zips inside. Storehouse works out what each thing is and shows the plan before anything is copied.</li>
+            <li>Spots names already taken, files already in the library, and materials missing a map.</li>
+            <li>An <strong>Inbox</strong> for imports someone should look at first, or import straight into a kit.</li>
+            <li>Reads vendor files, such as Megascans' own tags.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Tagging you can trust</h3>
+          <ul>
+            <li><strong>One tag box everywhere.</strong> Type any word; a new one asks once which group it belongs to.</li>
+            <li>The picture tagger runs on the graphics card, about four times faster, and only suggests what it's sure of.</li>
+            <li>Hover a tag to see <strong>where it came from</strong>: the name, the vendor, the picture or a person.</li>
+            <li><kbd>Ctrl</kbd> <kbd>Z</kbd> undoes tag, name and description changes. Proposals let a reviewer approve changes first.</li>
+          </ul>
+          <div class="apps">
+            <span class="chip"><b>surface:</b>metal</span>
+            <span class="chip"><b>look:</b>worn</span>
+            <span class="chip"><b>environment:</b>indoor</span>
+          </div>
+        </div>
+
+        <div>
+          <h3>Finding things</h3>
+          <ul>
+            <li><strong>Find similar</strong>, or drop a picture on the search box to find what looks like it.</li>
+            <li>Search for a look ("worn wood"), filter by size (1K–8K) and by the application it's made for.</li>
+            <li>Smart collections (Untagged, Needs review), saved filters, a Most used sort, and Compare for two to four assets.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Looking closer</h3>
+          <ul>
+            <li><strong>HDRI viewer:</strong> exposure, a histogram in stops, a chrome ball, and correct ACEScg.</li>
+            <li><strong>Models:</strong> size and units, UVs (single tile or UDIM), materials and missing textures, and LODs.</li>
+            <li><strong>Preview renders:</strong> materials on a sphere, cloth and cube, models as a clay turntable (Houdini + Redshift).</li>
+            <li>Setups and courses play in the window, with notes stamped at the timecode and progress per course.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Into the scene</h3>
+          <ul>
+            <li><strong>Every send is queued and answered:</strong> Storehouse says what Cinema 4D or Houdini built, or why it couldn't.</li>
+            <li>An HDRI becomes a dome light at the exposure you were viewing; models arrive at the scene's scale.</li>
+            <li>Install HDAs and plug-ins with update, roll back and undo. <strong>Works with</strong> checks what a setup needs.</li>
+            <li>Export any material as USD.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Projects and kits</h3>
+          <ul>
+            <li><strong>Projects:</strong> see every file a scene uses, then package it for travel, relinked and checked.</li>
+            <li>Take a kit offline and merge your changes back later.</li>
+            <li>Versions, notes, and source and licence details kept with each asset.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Nothing lost</h3>
+          <ul>
+            <li>Says when the library is offline and waits for it, instead of failing part-way.</li>
+            <li>Sending twice no longer loses the first send, and a failed export keeps the old archive.</li>
+            <li>Daily index backups that can be restored, and a trash with Restore.</li>
+            <li>The library on disk is still the truth: every tag and note lives in the asset's own folder.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="needs">
+    <div class="wrap">
+      <h2>What it needs</h2>
+      <p class="sub">Everything else is optional; the app says plainly what is and isn't on the machine.</p>
+      <div class="req">
+        <div>
+          <h3>To run</h3>
+          <p>Windows 10 or 11, 64-bit. About 215 MB on disk, plus 373 MB for the picture model.</p>
+        </div>
+        <div>
+          <h3>To send</h3>
+          <p>Cinema 4D and/or Houdini, with the helpers installed from Settings. Tested with Cinema 4D 2026 and Houdini 21 and 22.</p>
+        </div>
+        <div>
+          <h3>To render previews</h3>
+          <p>Houdini with Redshift for materials and models. HDRI previews need nothing extra.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>BC Storehouse 2.0.0 · Indra – Builders Club</span>
+    <span>This repository holds the downloads; the source code is private.</span>
+  </div>
+</footer>
+
+</body>
+</html>
