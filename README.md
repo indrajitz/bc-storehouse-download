@@ -13,8 +13,6 @@ straight into Cinema 4D or Houdini.
 Download `BC-Storehouse-Setup-<version>.exe` from the latest release and run
 it. No admin rights needed; it adds BC Storehouse to the Start menu, and
 Windows Settings › Apps removes it. `/VERYSILENT` installs with no questions.
-Rather not install? The portable `BC-Storehouse-<version>-windows.zip` runs
-from any folder.
 
 Coming from 1.25? Setup replaces it in place, and your library and tags are
 kept. Update everyone on a shared library
