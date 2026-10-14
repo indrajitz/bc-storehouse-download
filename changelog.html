@@ -25,6 +25,7 @@
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-0" class="new">2.1.0</a>
     <a href="#v2-0-0" class="new">2.0.0</a>
     <a href="#v1-59-1" class="new">1.59.1</a>
     <a href="#v1-59-0" class="new">1.59.0</a>
@@ -104,7 +105,126 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-0-0"><h2>2.0.0 <span class="date">13 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-0"><h2>2.1.0 <span class="date">14 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+Imports that account for every product, copies and drags that hand over the real maps, colour spaces Houdini and Cinema 4D actually accept — and vendor products recognised by their IDs and given their real names.
+</p>
+<h3>Before you install</h3>
+<ul>
+<li>
+<strong>Everyone at once, on the same day.</strong> This build locks each save; older builds don't take those locks, so one still running beside it can lose a colleague's change, and a copy older than 1.52 erases fields newer ones keep. Close Storehouse everywhere, then run the new Setup on every machine.
+</li>
+<li>
+<strong>Update the helpers, then restart.</strong> Settings › Cinema 4D &amp; Houdini › Reinstall helper for each, then restart Cinema 4D and Houdini. An out-of-date helper now blocks the send and offers <strong>Update helper</strong>.
+</li>
+</ul>
+<h3>New</h3>
+<ul>
+<li>
+<strong>Vendor products know their names.</strong> A Megascans download called <code>vixsbizdw</code> comes in as "Tundra Riverbed", with the vendor's own tags. Megascans and GSG are read from the studio's own files only (Bridge exports, .gsgm/.gsga — no online lookups); Poly Haven and ambientCG from their official catalogues. Recognition happens on import, before any picture tagging; the vendor ID stays in the folder name and is searchable. Nothing is renamed or moved.
+</li>
+<li>
+<strong>Only a sure match is applied.</strong> An uncertain one is flagged for review and changes nothing. A name you typed and a tag you rejected always win.
+</li>
+<li>
+<strong>The asset panel says where it came from:</strong> vendor, product, link and why it matched, with <strong>Not this product</strong> (takes the name and tags back off) and <strong>Choose product…</strong>.
+</li>
+<li>
+<strong>Settings › Import &amp; tagging › Vendor catalog:</strong> what each vendor has, when it was last updated, <strong>Update now</strong>, and the Bridge and GSG folders this machine reads. The catalog updates itself in the background.
+</li>
+<li>
+<strong>Every import ends with a summary</strong> — imported, updated, unchanged, skipped, failed, not attempted — also after a failure or Cancel, with a CSV beside the log. <strong>Retry</strong> runs only what failed or was not attempted.
+</li>
+<li>
+<strong>Copy everything</strong> and <strong>Copy folder path</strong> in the right-click menu, for the old whole-folder behaviour. Single files drag from the Files list in the asset's details.
+</li>
+<li>
+<strong>Send material only</strong> for a model; a model with no geometry says so.
+</li>
+<li>
+<strong>Each send says what every texture was set to</strong> in Houdini or Cinema 4D.
+</li>
+<li>
+For whoever looks after the catalog: <code>storehouse catalog</code> (collect, status, match, reject, set) and <code>catalog enrich --dry-run</code> to see what it would do for assets already in the library, before applying with undo.
+</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>
+<strong>Import could overwrite one product with another of the same name.</strong> It never merges or overwrites now: a clash blocks Import until each one gets its own name or is skipped. An existing asset keeps its differing files unless you choose Replace, and then the old files go to the trash.
+</li>
+<li>
+<strong>Dropped folders</strong> keep their 2K/4K subfolders and their own name, and a folder holding several material sets is split into separate assets.
+</li>
+<li>
+<strong>Previews picked an AO or normal map.</strong> Import picks the base colour.
+</li>
+<li>
+<strong>Overview thumbnails went blank</strong> after roughly row 64. They load wherever you scroll, come back after a network hiccup and use far less memory. Materials whose preview was a data map show their colour map.
+</li>
+<li>
+<strong>Copy and drag gave asset.json, notes and previews.</strong> Copy files, drag and Copy path now hand over the real current maps — one per type, at one resolution, OpenGL normal — or the mesh or HDRI. Never old versions.
+</li>
+<li>
+<strong>Houdini colour spaces.</strong> Colour maps were set to "sRGB", which Houdini's Redshift does not have. They are now "sRGB - Texture", EXR/HDR colour is "Linear Rec.709 (sRGB)" and data maps are "Raw" — the names in Houdini's own menu, checked with real Redshift renders. Cinema 4D the same.
+</li>
+<li>
+<strong>Models sent as a material.</strong> A model sends only as real geometry (FBX, OBJ or Alembic, LOD0 first). Mirrored FBX parts are no longer inside out in the 3D view.
+</li>
+<li>
+<strong>Two people saving the same asset, tag list or kit</strong> could lose a change or delete asset.json. Saves now take turns; one kept waiting over 15 s says who holds it.
+</li>
+<li>
+<strong>Damaged files no longer cause damage.</strong> An unreadable asset.json is never given a new identity, a bad schema_version no longer stops a rescan, notes saved in Windows-1252 no longer break the asset page, a damaged settings file no longer stops the app opening, and an unreadable <code>_filters.json</code> is reported instead of wiped.
+</li>
+<li>
+<strong>Zips</strong> from Western Windows keep accented names; one bad entry no longer sinks the archive; files differing only by case are both kept.
+</li>
+<li>
+<strong>Typed tags</strong> keep accents and other scripts (no more <code>asset_&lt;hash&gt;</code>).
+</li>
+<li>
+<strong>Trash and jobs.</strong> Trashing with a file open moves nothing and names the file; emptying the trash says what it couldn't delete; cancelled jobs no longer run anyway; a failed Add version leaves no stray folder.
+</li>
+<li>
+<strong>Offline.</strong> The app really browses from the last index when the share is down, and kit refresh brings in colleagues' new versions.
+</li>
+<li>
+Archive assets imported as duplicates get their own identity; archive Replace goes through the trash; plug-in and HDA installs can't write outside their folders. Onboarding finds a OneDrive Documents folder.
+</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>
+<strong>Faster.</strong> The window opens in about half the time (~1.2 s to ~0.46 s); refresh and search are quicker (all assets 452 to 315 ms, a search 332 to 151 ms). Big drops are planned in the background, so the window keeps answering. A busy index says so instead of freezing.
+</li>
+<li>
+<strong>Closing during an import asks first.</strong>
+</li>
+<li>
+<strong>Model sends and the 3D view are labelled Experimental.</strong>
+</li>
+<li>
+<strong>The app no longer updates itself.</strong> A newer build says to run the new Setup. For whoever installs it: builds and installers refuse an exe whose version doesn't match.
+</li>
+</ul>
+<h3>Known limits</h3>
+<ul>
+<li>
+Cinema 4D renders of float (EXR/HDR) colour maps are not yet checked.
+</li>
+<li>
+Models are experimental: send and 3D view both.
+</li>
+<li>
+Vendor keywords become searchable once an asset is reindexed.
+</li>
+<li>
+The first offline start on a fresh machine has no remembered index to browse; open it once on the share first.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-0-0"><h2>2.0.0 <span class="date">13 October 2026</span></h2>
 <p>
 The v2 line: the Qt window, the whole implementation roadmap (sends, versions, kits, tagging, previews, tools and courses), archives that unpack on import, and a copy that works when sent outside the studio.
 </p>

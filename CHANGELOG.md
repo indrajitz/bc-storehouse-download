@@ -6,6 +6,113 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.0 — 14 October 2026
+
+Imports that account for every product, copies and drags that hand over
+the real maps, colour spaces Houdini and Cinema 4D actually accept -- and
+vendor products recognised by their IDs and given their real names.
+
+### Before you install
+
+- **Everyone at once, on the same day.** This build locks each save; older
+  builds don't take those locks, so one still running beside it can lose a
+  colleague's change, and a copy older than 1.52 erases fields newer ones
+  keep. Close Storehouse everywhere, then run the new Setup on every machine.
+- **Update the helpers, then restart.** Settings › Cinema 4D & Houdini ›
+  Reinstall helper for each, then restart Cinema 4D and Houdini. An
+  out-of-date helper now blocks the send and offers **Update helper**.
+
+### New
+
+- **Vendor products know their names.** A Megascans download called
+  `vixsbizdw` comes in as "Tundra Riverbed", with the vendor's own tags.
+  Megascans and GSG are read from the studio's own files only (Bridge
+  exports, .gsgm/.gsga -- no online lookups); Poly Haven and ambientCG from
+  their official catalogues. Recognition happens on import, before any
+  picture tagging; the vendor ID stays in the folder name and is
+  searchable. Nothing is renamed or moved.
+- **Only a sure match is applied.** An uncertain one is flagged for review
+  and changes nothing. A name you typed and a tag you rejected always win.
+- **The asset panel says where it came from:** vendor, product, link and
+  why it matched, with **Not this product** (takes the name and tags back
+  off) and **Choose product…**.
+- **Settings › Import & tagging › Vendor catalog:** what each vendor has,
+  when it was last updated, **Update now**, and the Bridge and GSG folders
+  this machine reads. The catalog updates itself in the background.
+- **Every import ends with a summary** -- imported, updated, unchanged,
+  skipped, failed, not attempted -- also after a failure or Cancel, with a
+  CSV beside the log. **Retry** runs only what failed or was not attempted.
+- **Copy everything** and **Copy folder path** in the right-click menu, for
+  the old whole-folder behaviour. Single files drag from the Files list in
+  the asset's details.
+- **Send material only** for a model; a model with no geometry says so.
+- **Each send says what every texture was set to** in Houdini or Cinema 4D.
+- For whoever looks after the catalog: `storehouse catalog` (collect,
+  status, match, reject, set) and `catalog enrich --dry-run` to see what it
+  would do for assets already in the library, before applying with undo.
+
+### Fixed
+
+- **Import could overwrite one product with another of the same name.** It
+  never merges or overwrites now: a clash blocks Import until each one gets
+  its own name or is skipped. An existing asset keeps its differing files
+  unless you choose Replace, and then the old files go to the trash.
+- **Dropped folders** keep their 2K/4K subfolders and their own name, and a
+  folder holding several material sets is split into separate assets.
+- **Previews picked an AO or normal map.** Import picks the base colour.
+- **Overview thumbnails went blank** after roughly row 64. They load
+  wherever you scroll, come back after a network hiccup and use far less
+  memory. Materials whose preview was a data map show their colour map.
+- **Copy and drag gave asset.json, notes and previews.** Copy files, drag
+  and Copy path now hand over the real current maps -- one per type, at one
+  resolution, OpenGL normal -- or the mesh or HDRI. Never old versions.
+- **Houdini colour spaces.** Colour maps were set to "sRGB", which
+  Houdini's Redshift does not have. They are now "sRGB - Texture", EXR/HDR
+  colour is "Linear Rec.709 (sRGB)" and data maps are "Raw" -- the names in
+  Houdini's own menu, checked with real Redshift renders. Cinema 4D the same.
+- **Models sent as a material.** A model sends only as real geometry
+  (FBX, OBJ or Alembic, LOD0 first). Mirrored FBX parts are no longer inside
+  out in the 3D view.
+- **Two people saving the same asset, tag list or kit** could lose a change
+  or delete asset.json. Saves now take turns; one kept waiting over 15 s
+  says who holds it.
+- **Damaged files no longer cause damage.** An unreadable asset.json is never
+  given a new identity, a bad schema_version no longer stops a rescan,
+  notes saved in Windows-1252 no longer break the asset page, a damaged
+  settings file no longer stops the app opening, and an unreadable
+  `_filters.json` is reported instead of wiped.
+- **Zips** from Western Windows keep accented names; one bad entry no longer
+  sinks the archive; files differing only by case are both kept.
+- **Typed tags** keep accents and other scripts (no more `asset_<hash>`).
+- **Trash and jobs.** Trashing with a file open moves nothing and names the
+  file; emptying the trash says what it couldn't delete; cancelled jobs no
+  longer run anyway; a failed Add version leaves no stray folder.
+- **Offline.** The app really browses from the last index when the share is
+  down, and kit refresh brings in colleagues' new versions.
+- Archive assets imported as duplicates get their own identity; archive
+  Replace goes through the trash; plug-in and HDA installs can't write
+  outside their folders. Onboarding finds a OneDrive Documents folder.
+
+### Changed
+
+- **Faster.** The window opens in about half the time (~1.2 s to ~0.46 s);
+  refresh and search are quicker (all assets 452 to 315 ms, a search 332 to
+  151 ms). Big drops are planned in the background, so the window keeps
+  answering. A busy index says so instead of freezing.
+- **Closing during an import asks first.**
+- **Model sends and the 3D view are labelled Experimental.**
+- **The app no longer updates itself.** A newer build says to run the new
+  Setup. For whoever installs it: builds and installers refuse an exe whose
+  version doesn't match.
+
+### Known limits
+
+- Cinema 4D renders of float (EXR/HDR) colour maps are not yet checked.
+- Models are experimental: send and 3D view both.
+- Vendor keywords become searchable once an asset is reindexed.
+- The first offline start on a fresh machine has no remembered index to
+  browse; open it once on the share first.
+
 ## 2.0.0 — 13 October 2026
 
 The v2 line: the Qt window, the whole implementation roadmap (sends,
