@@ -20,11 +20,13 @@
       <a href="./#install">Install</a>
       <a href="./#new" class="wide">What's new</a>
       <a href="changelog.html" aria-current="page">Changelog</a>
+      <a class="coffee" href="https://buymeacoffee.com/indrajitz" target="_blank" rel="noopener" title="Buy me a coffee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8h13v8l-2 3.5h-9l-2-3.5z"/><path d="M16.5 8.5a3.5 3.5 0 0 1 0 7"/><path d="M7 2.5V5M10.5 2.5V5M14 2.5V5"/></svg><span>Buy me a coffee</span></a>
     </nav>
   </div>
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-1" class="new">2.1.1</a>
     <a href="#v2-1-0" class="new">2.1.0</a>
     <a href="#v2-0-0" class="new">2.0.0</a>
     <a href="#v1-59-1" class="new">1.59.1</a>
@@ -105,7 +107,93 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-1-0"><h2>2.1.0 <span class="date">14 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-1"><h2>2.1.1 <span class="date">15 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+The morning after 2.1.0, five auditors went through the new code and the corners no audit had reached; everything they confirmed is fixed here, each fix pinned by a test that failed on 2.1.0 first. The full findings are in <code>docs/AUDIT-2026-10-15.md</code>.
+</p>
+<h3>Before you install</h3>
+<ul>
+<li>
+<strong>Update the helpers again, then restart.</strong> Settings › Cinema 4D &amp; Houdini › Reinstall helper for each; the helpers moved their queue and an older one is blocked from taking sends.
+</li>
+</ul>
+<h3>New</h3>
+<ul>
+<li>
+<strong>Buy me a coffee.</strong> A row at the foot of the sidebar, under Settings, and a card in Settings &gt; About open the maintainer's page in your browser. Entirely optional; it does nothing else.
+</li>
+</ul>
+<h3>Fixed — imports and saves</h3>
+<ul>
+<li>
+<strong>Two machines importing the same new product at once</strong> now end with one asset and one identity; the second import adds to the first instead of overwriting it.
+</li>
+<li>
+<strong>Files arrive whole or not at all:</strong> a crash mid-copy can no longer leave a truncated file that later imports keep, and an import that crashed at the very start no longer blocks that name for ever.
+</li>
+<li>
+A library whose lock folder cannot be created no longer fails every save; the edit screen's Save no longer freezes the window while the share is busy; a wrong clock on one machine can no longer delete another's version-copy in progress; Replace-on-import waits its turn behind a save.
+</li>
+<li>
+"Import all separately" waits for planning to finish, so a rename can no longer be undone by the planning job and lose that row's tag edits.
+</li>
+<li>
+<strong>Pressing Import twice no longer runs the same batch twice.</strong> While an import is running, another is refused with a message, instead of two copies racing over the same files (a tester's log showed one 443-asset import pressed twice, both copies writing at once for fifteen minutes).
+</li>
+<li>
+<strong>"The library changed" no longer nags during your own import.</strong> The watcher holds its comparison while this window's own jobs write the library; a colleague's real change is still said at the first check after the job ends (the tester's log had 54 false alarms in one import).
+</li>
+</ul>
+<h3>Fixed — what leaves the library</h3>
+<ul>
+<li>
+<strong>UDIM materials arrive whole.</strong> A drag or copy hands over every tile; sends and USD exports use the <code>&lt;UDIM&gt;</code> token (set and read back in real Houdini and Cinema 4D Redshift) instead of stretching tile 1001 over everything.
+</li>
+<li>
+Dragging an HDRI gives the HDRI, not its biggest backplate; drag and send agree on the resolution; sending a single texture no longer puts notes and previews on the clipboard; select-all + copy of thousands of assets no longer freezes the window.
+</li>
+<li>
+A corrupt queue file, a second window, or a partial offline kit copy can no longer block, garble or silently cripple a send.
+</li>
+</ul>
+<h3>Fixed — vendor catalog</h3>
+<ul>
+<li>
+A vendor record's link only opens when it is a real web address; anything else shows as plain text.
+</li>
+<li>
+Two machines updating the team catalog at once no longer lose each other's records; a crashed collection frees its lock in half an hour; a damaged catalog is set aside and rebuilt instead of crashing; "Not this product" survives re-importing the asset; registering the library itself as a vendor folder is refused.
+</li>
+</ul>
+<h3>Fixed — the rest</h3>
+<ul>
+<li>
+Contact sheets fail loudly when a page cannot be written instead of reporting "saved", and "Save as PNG pages" to a bare name no longer writes a PDF.
+</li>
+<li>
+Package for travel: validation catches files the packaging itself lost; renamed copies can no longer overwrite each other; $F and UDIM sequences stay resolvable.
+</li>
+<li>
+A share hiccup reading a kit stops a Keep left/right instead of leaving the kit pointing at the trashed copy.
+</li>
+<li>
+"Check health" now runs the full deep check with progress; the Jobs page refresh no longer freezes the window when the share is away; a broken index is announced on the asset panel instead of showing a falsely clean asset.
+</li>
+<li>
+The studio worker reports a refused token as exactly that, drops idle connections, and serves only this machine unless started with <code>--host 0.0.0.0</code>; a render asked for a trashed asset fails instantly instead of burning three Houdini sessions.
+</li>
+<li>
+<strong>The picture tagger looks at the right picture and says when it can't.</strong> It prefers a plain colour map over the same map as EXR, no longer picks a displacement map out of a model pack, and says "the picture could not be read" instead of quietly finding nothing.
+</li>
+<li>
+<strong>Sends leave a trace.</strong> Every queued, built, stale or blocked send and every preview render request is now one line in the log, so a send that never arrives can be followed.
+</li>
+<li>
+<strong>Closing only asks about work you started.</strong> The background housekeeping — reading picture sizes, fetching the model, the daily index backup — is stopped quietly instead of propping open a "still running" question.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-1-0"><h2>2.1.0 <span class="date">14 October 2026</span></h2>
 <p>
 Imports that account for every product, copies and drags that hand over the real maps, colour spaces Houdini and Cinema 4D actually accept — and vendor products recognised by their IDs and given their real names.
 </p>

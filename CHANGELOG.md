@@ -6,6 +6,99 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.1 — 15 October 2026
+
+The morning after 2.1.0, five auditors went through the new code and the
+corners no audit had reached; everything they confirmed is fixed here, each
+fix pinned by a test that failed on 2.1.0 first. The full findings are in
+`docs/AUDIT-2026-10-15.md`.
+
+### Before you install
+
+- **Update the helpers again, then restart.** Settings › Cinema 4D & Houdini
+  › Reinstall helper for each; the helpers moved their queue and an older
+  one is blocked from taking sends.
+
+### New
+
+- **Buy me a coffee.** A row at the foot of the sidebar, under Settings,
+  and a card in Settings > About open the maintainer's page in your
+  browser. Entirely optional; it does nothing else.
+
+### Fixed — imports and saves
+
+- **Two machines importing the same new product at once** now end with one
+  asset and one identity; the second import adds to the first instead of
+  overwriting it.
+- **Files arrive whole or not at all:** a crash mid-copy can no longer leave
+  a truncated file that later imports keep, and an import that crashed at
+  the very start no longer blocks that name for ever.
+- A library whose lock folder cannot be created no longer fails every save;
+  the edit screen's Save no longer freezes the window while the share is
+  busy; a wrong clock on one machine can no longer delete another's
+  version-copy in progress; Replace-on-import waits its turn behind a save.
+- "Import all separately" waits for planning to finish, so a rename can no
+  longer be undone by the planning job and lose that row's tag edits.
+- **Pressing Import twice no longer runs the same batch twice.** While an
+  import is running, another is refused with a message, instead of two
+  copies racing over the same files (a tester's log showed one 443-asset
+  import pressed twice, both copies writing at once for fifteen minutes).
+- **"The library changed" no longer nags during your own import.** The
+  watcher holds its comparison while this window's own jobs write the
+  library; a colleague's real change is still said at the first check
+  after the job ends (the tester's log had 54 false alarms in one import).
+
+### Fixed — what leaves the library
+
+- **UDIM materials arrive whole.** A drag or copy hands over every tile;
+  sends and USD exports use the `<UDIM>` token (set and read back in real
+  Houdini and Cinema 4D Redshift) instead of stretching tile 1001 over everything.
+- Dragging an HDRI gives the HDRI, not its biggest backplate; drag and send
+  agree on the resolution; sending a single texture no longer puts notes
+  and previews on the clipboard; select-all + copy of thousands of assets
+  no longer freezes the window.
+- A corrupt queue file, a second window, or a partial offline kit copy can
+  no longer block, garble or silently cripple a send.
+
+### Fixed — vendor catalog
+
+- A vendor record's link only opens when it is a real web address; anything
+  else shows as plain text.
+- Two machines updating the team catalog at once no longer lose each
+  other's records; a crashed collection frees its lock in half an hour; a
+  damaged catalog is set aside and rebuilt instead of crashing; "Not this
+  product" survives re-importing the asset; registering the library itself
+  as a vendor folder is refused.
+
+### Fixed — the rest
+
+- Contact sheets fail loudly when a page cannot be written instead of
+  reporting "saved", and "Save as PNG pages" to a bare name no longer
+  writes a PDF.
+- Package for travel: validation catches files the packaging itself lost;
+  renamed copies can no longer overwrite each other; $F and UDIM sequences
+  stay resolvable.
+- A share hiccup reading a kit stops a Keep left/right instead of leaving
+  the kit pointing at the trashed copy.
+- "Check health" now runs the full deep check with progress; the Jobs page
+  refresh no longer freezes the window when the share is away; a broken
+  index is announced on the asset panel instead of showing a falsely clean
+  asset.
+- The studio worker reports a refused token as exactly that, drops idle
+  connections, and serves only this machine unless started with
+  `--host 0.0.0.0`; a render asked for a trashed asset fails instantly
+  instead of burning three Houdini sessions.
+- **The picture tagger looks at the right picture and says when it can't.**
+  It prefers a plain colour map over the same map as EXR, no longer picks a
+  displacement map out of a model pack, and says "the picture could not be
+  read" instead of quietly finding nothing.
+- **Sends leave a trace.** Every queued, built, stale or blocked send and
+  every preview render request is now one line in the log, so a send that
+  never arrives can be followed.
+- **Closing only asks about work you started.** The background housekeeping
+  -- reading picture sizes, fetching the model, the daily index backup -- is
+  stopped quietly instead of propping open a "still running" question.
+
 ## 2.1.0 — 14 October 2026
 
 Imports that account for every product, copies and drags that hand over

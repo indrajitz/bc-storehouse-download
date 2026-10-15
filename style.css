@@ -49,6 +49,12 @@ h1, h2, h3 { text-wrap: balance; font-weight: 600; letter-spacing: -0.02em; marg
 .bar nav { margin-left: auto; display: flex; gap: 20px; font-size: 13px; }
 .bar nav a { color: var(--muted); text-decoration: none; }
 .bar nav a:hover, .bar nav a[aria-current] { color: var(--text); }
+/* The thank-you link: the one accent in the bar, a small cup and words. */
+.bar nav { align-items: center; }
+.bar nav a.coffee { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-text);
+  border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px 4px 8px; }
+.bar nav a.coffee:hover { color: var(--text); border-color: var(--accent); }
+.bar nav a.coffee svg { width: 15px; height: 15px; }
 
 /* -- hero --------------------------------------------------------------- */
 .hero { padding-top: 64px; padding-bottom: 48px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: start; }
@@ -163,6 +169,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .wrap { padding-left: 16px; padding-right: 16px; }
   .bar nav { gap: 14px; }
   .bar nav .wide { display: none; }
+  .bar nav a.coffee span { display: none; }
+  .bar nav a.coffee { padding: 5px 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
