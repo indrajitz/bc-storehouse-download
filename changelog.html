@@ -26,6 +26,7 @@
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-2" class="new">2.1.2</a>
     <a href="#v2-1-1" class="new">2.1.1</a>
     <a href="#v2-1-0" class="new">2.1.0</a>
     <a href="#v2-0-0" class="new">2.0.0</a>
@@ -107,7 +108,21 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-1-1"><h2>2.1.1 <span class="date">15 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-2"><h2>2.1.2 <span class="date">16 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+A small follow-up to 2.1.1, from the same tester's log.
+</p>
+<h3>Fixed</h3>
+<ul>
+<li>
+<strong>"Checking for duplicates" no longer reads every same-size map whole.</strong> Same-resolution TGA, TIFF and EXR maps all have the same byte count, and each was read in full over the share just to learn it was not a copy — ten minutes for one 443-asset pack. Large same-size pairs are now compared by three small samples first; nothing is called a duplicate without a whole-file match. About fifteen times less read on a cold check.
+</li>
+<li>
+<strong>A map edited in place is no longer matched by its old fingerprint.</strong> The duplicate check remembered a library file's hash by its path alone, so an incoming copy of the old bytes could be called a duplicate of a file that had since changed. The remembered hash now holds only while the file keeps its size and modification time.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-1-1"><h2>2.1.1 <span class="date">15 October 2026</span></h2>
 <p>
 The morning after 2.1.0, five auditors went through the new code and the corners no audit had reached; everything they confirmed is fixed here, each fix pinned by a test that failed on 2.1.0 first. The full findings are in <code>docs/AUDIT-2026-10-15.md</code>.
 </p>

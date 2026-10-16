@@ -6,6 +6,24 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.2 — 16 October 2026
+
+A small follow-up to 2.1.1, from the same tester's log.
+
+### Fixed
+
+- **"Checking for duplicates" no longer reads every same-size map whole.**
+  Same-resolution TGA, TIFF and EXR maps all have the same byte count, and
+  each was read in full over the share just to learn it was not a copy --
+  ten minutes for one 443-asset pack. Large same-size pairs are now compared
+  by three small samples first; nothing is called a duplicate without a
+  whole-file match. About fifteen times less read on a cold check.
+- **A map edited in place is no longer matched by its old fingerprint.** The
+  duplicate check remembered a library file's hash by its path alone, so an
+  incoming copy of the old bytes could be called a duplicate of a file that
+  had since changed. The remembered hash now holds only while the file keeps
+  its size and modification time.
+
 ## 2.1.1 — 15 October 2026
 
 The morning after 2.1.0, five auditors went through the new code and the
