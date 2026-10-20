@@ -6,6 +6,304 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.4 — 20 October 2026
+
+- **Library operation follow-ups.** Publishing inbox items reports every
+  folder already moved even if a later item fails or the job is cancelled.
+  Preview requests and adoption check the asset identity at the recorded
+  path. Consolidating copied assets preserves kit membership, and course
+  progress follows the library identity when the index moves.
+- **Tagging and browsing follow-ups.** Renaming tags preserves their origin
+  and finds assets from their sidecars, including changes absent from this
+  machine's index. Word suggestions conflicting with an accepted
+  single-valued tag require review. Replacement images can retry a refused
+  thumbnail, and Organise and Look-alikes open before the index exists.
+- **Vendor and compatibility follow-ups.** Local vendor-folder settings stay
+  with their machine; damaged preferences are kept before replacement.
+  Inspecting a Houdini scene or HDA reads at most the first 64 MB plus one
+  byte, and the compatibility panel says when the result is partial.
+- **Houdini scene packaging keeps Redshift textures with literal names.**
+  Filenames containing `$`, a word-starting `~`, or other escaped characters
+  are resolved as Redshift reads them before copying. They previously
+  appeared missing during packaging even though the material could read
+  them. The send-queue verification tool also checks the current helper
+  version instead of its obsolete version-4 expectation.
+
+- **Start a new library from the window.** Choosing a folder that is not a
+  library yet, on first run or in Settings, now offers to set it up -- its
+  settings file, a folder per category and the tag list -- which before
+  only `storehouse init` did. Choosing No uses the folder as it is;
+  choosing the folder above a library points you to the library inside.
+  On 2.1.2 a brand-new library also closed the window on opening ("no such
+  table: files"); that was fixed earlier in 2.1.4. `storehouse init` no
+  longer replaces a `_library.json` it cannot read -- a new identity would
+  cut the library off from its index -- it stops and says so. The first
+  screen says so too, and an empty library offers **Import…** instead of
+  "Nothing here."
+
+- **Questions and warnings are readable in Windows light mode.** Every
+  pop-up -- "Close anyway?", "Apply?", the trash and setup questions --
+  had near-white text on Windows' light-grey dialog colour when Windows
+  apps are set to light mode (its default), so only the buttons showed.
+  Dialogs now take the window's dark surface whatever the Windows theme.
+  Dark mode looked right before and still does.
+
+- **Removed: the old window (`--tk`) and the web UI.** The Qt window is the
+  one UI. Typing `--tk` prints a one-line notice and opens the normal
+  window; `storehouse serve` is gone.
+
+- **Search and refresh no longer block the window** (PRR 04 F2, the
+  deferred part). The index query behind every refresh -- search, filters,
+  categories, the rail's counts and the facet pills -- runs on a search
+  worker off the UI thread; the grid keeps its rows (and the count label
+  its number) until the new ones land, and a stale answer is dropped by a
+  generation token, so typing fast lands only the last query's rows.
+  Callers that act on the filled grid (`show_imported`, `restore_place`)
+  chain through the new `refreshed` signal / `refresh(then=...)`; tests
+  that need the old synchronous contract use
+  `tests.fixtures.synchronous_refresh`. On the review's harness at 5×
+  (lan): refresh "All" 591 ms on the UI thread → 0.2 ms (the rows land
+  after the same ~0.6 s, without blocking); cold start to a drawn window
+  1,073 ms → 289 ms; the 579–709 ms search stalls during typing and
+  category changes are gone.
+
+Substance materials 1:1. Plan and owner decisions:
+`docs/PLAN-SUBSTANCE-FIDELITY-2026-10-16.md`; how the pieces talk:
+`docs/SUBSTANCE-CONTRACT-2.1.4.md`.
+
+### Fixed (import, from the tester's 16 October log)
+
+The details, and how each was reproduced: `docs/FIX-IMPORT-2026-10-17.md`.
+
+- **"Import all separately" does what it says.** A set held in a
+  subfolder of a vendor folder (`bark_birch_.../Sapling_painted_textures/`
+  with `2K/` and `4K/`) could not be renamed -- it was planned again from
+  its file list, without its folders, and collided with itself -- so
+  Import was refused again after the button, for good. A rename now
+  starts from what the row was planned from, a new name can no longer
+  land on another row's folder, and a row that still cannot be renamed
+  is named in the status line with the reason (it used to say "N renamed"
+  over it).
+- **Importing what is already in the library is skipped, and said.** A
+  row whose every file is in the library already, byte for byte (the rule
+  "Skip duplicates" has always used), is not imported again: not as a
+  numbered second copy ("Thumbs 2", "sapling painted textures 2") and not
+  added into another product's asset that happens to share its name. It
+  is no name conflict either. The summary and the CSV list it as
+  skipped -- "already in the library: all 6 file(s) are in
+  materials/..., byte for byte" -- and an identical re-import of an asset
+  says so on its "unchanged" row. Import a copy anyway, on the row,
+  imports the second copy when that is what you want. A row whose check
+  had not finished when Import was pressed is checked by the import
+  before anything of it is copied. Nothing is moved or deleted from the
+  sources.
+- **A `--move` import never loses the only copy** (`ingest --move`,
+  `bulk-import --move`). The source is deleted only once its copy is in
+  the library whole; a failed swap leaves it where it was, never as a
+  hidden temporary a later save sweeps away. A file still arriving in the
+  library is no longer taken for a day-old orphan by a colleague's save
+  in the same folder (it used to carry the source's old date). A library
+  this build may not write is refused by the import itself, before a
+  folder is claimed, and the batch stops there.
+- **Quieter log.** The per-row auto-tag and vendor lines are DEBUG (Settings
+  > About > Detailed log); each drop gets one INFO line of counts.
+- **Every Import press is in the log** -- the plan's size and what came of
+  it (refused and why, cancelled, or the batch it queued) -- and so is
+  every message the import page shows. The tester's log showed renames
+  and then nothing; the refusal was on the screen only.
+- **A Substance import renders here only when Settings says so.** "Ask
+  for renders of what I import" (off by default) now governs the swatch
+  and ball rendering on this machine too -- they are still asked for, and
+  wait in the queue otherwise -- and that render takes only this import's
+  requests, never everyone else's queued renders.
+- **A vendor's `Thumbs/` or `previews/` folder is no longer an asset.**
+  Its pictures stay with the product they sit beside, at any depth, so a
+  Megascans folder like `bark_birch_...` no longer arrives as six assets
+  (`materials/thumbs`, a one-jpg preview asset, a second "sapling painted
+  textures" made of the set's loose swatch, ...). A loose file named after
+  a set folder beside it joins that set.
+- **A shelf folder holding a single product** imports under the
+  product's name, not the shelf's.
+- **A set folder inside a product is imported once.** Dropping a shelf of
+  vendor folders imported a nested set (`.../Sapling_painted_textures/`)
+  twice -- as its own asset and again inside the product -- and when two
+  products held a set of the same name, one of them was silently not
+  planned. Every file is now in exactly one row, and same-named sets are
+  both there, as a name conflict.
+- **A shelf drop plans a product the way a single drop does** (audit #5).
+  A vendor folder with a nested set folder imported as one asset dropped
+  alone but as two -- product and set -- when its shelf was dropped. A set
+  folder nested inside a product folder now stays part of that product, at
+  any depth, so each product arrives as the same single asset (same
+  destination, same files) either way; two products' same-named sets are
+  both planned inside their own products, so their name conflict is gone.
+  A product folder beside another is untouched: only nesting folds.
+- **Import makes each folder once, not once per file.** Every folder
+  creation is a round trip to the share; per file they were about a third
+  of a large import's copy time. Nothing else about the copy changed.
+
+### Added (app)
+
+- **Bake size and baked / live, chosen when you send.** For a Substance
+  material, the arrow beside "Send to Cinema 4D" / "Send to Houdini", the
+  "Send Substance to ..." right-click menus and the send card offer 1K,
+  2K, 4K, 8K and Baked or Live. A plain send uses the last choice, which
+  this machine remembers (2K baked until you choose); nothing is written
+  to the asset. The status line says what went: "sent a Substance
+  material, 4K, live".
+- **A Substance send says more about the material.** With the archive it
+  now carries the map size to bake and baked or live, every Adobe Standard
+  Material value (height scale, IOR, coat IOR ...) at its default -- each
+  marked as a default, so the helper can say so -- and which maps the
+  archive makes. The values are set on the Redshift material in the
+  application, which is where to change them: Storehouse keeps no
+  Substance settings of its own and writes nothing new to `asset.json`.
+- **The helpers must be HELPER 7.** A 6 is told to update before
+  anything is sent to it.
+
+### Fixed
+
+- **Opening an asset's panel no longer walks its folder on the share, and
+  a tag saves off the window** (PRR 04 F5/F6). Whether the panel offers
+  "Play video" and "Open viewer" is read from the index's file records --
+  the two folder walks were most of the 16-22 share reads each open cost
+  the UI thread. A tag added or removed in the panel shows at once and is
+  written on the jobs queue, like the edit screen's Save (240 ms on a busy
+  share, no longer spent on the window); edits to the same asset save in
+  the order they were made, and a failed save puts the chip back and says
+  why in the status line. Accepting suggested tags over a selection
+  (Suggested tags > Add ticked tags) wrote every asset.json the same way
+  and froze the window for seconds on a busy share; those writes are on
+  the jobs queue too, an asset that could not be tagged is named in the
+  status line, and the rest still land.
+- **Model cards no longer show streaks of repeated edge pixels.** A
+  Megascans 3D `_Preview.png` is a cut-out, and the colour hidden under
+  its transparent background is the object's outline smeared out to the
+  border. Thumbnails dropped the transparency and showed that instead --
+  on the card, in the side panel, in quick look and on contact sheets.
+  Transparent pictures are now laid on the card's own colour, and
+  thumbnails made by earlier builds are made again.
+  `docs/FIX-MODEL-PREVIEW-2026-10-17.md`.
+
+### Data safety (production readiness review, 17 Oct 2026)
+
+`docs/FIX-DATA-SAFETY-2026-10-17.md` has the detail and the proof.
+
+- **A library can refuse old builds.** `_library.json` can name the oldest
+  version allowed to make changes (`storehouse library set-min-version
+  2.1.4 --yes`, or Settings > Library location). A build older than that
+  opens the library read-only, with a banner saying which version is
+  needed and where to get it. Nothing sets it on its own. Builds before
+  2.1.4 cannot see it: upgrade every machine first.
+- **Notes are never silently overwritten.** If somebody else saved the
+  notes after you opened them, yours are saved and theirs are kept beside
+  them as `notes.conflict-<who>-<when>.md`, and you are told. Clearing the
+  notes asks first and moves `notes.md` to the trash (Ctrl+Z puts it back).
+  Who last saved the notes is kept in `asset.json` (`notes_saved`).
+- **Long names.** An asset with a very long folder name can be moved to
+  the trash and back. A new name over 200 characters is refused in plain
+  words before anything is copied.
+- **Plain errors** for a read-only `asset.json` or a full disk.
+- **A version an interrupted "add version" left behind** shows up as an
+  issue, and `storehouse repair` or the next added version records it.
+- **Previews and kit copies arrive whole**, through a temporary name, or
+  not at all.
+
+### Rollout (production readiness review, 17 Oct 2026)
+
+- **"A newer version is available."** A built copy -- a Setup install
+  included, which until now never heard of one -- asks GitHub's public
+  releases API for the newest version at most once a day, in the
+  background, and says so in a strip across the window with a Download
+  button that opens the download page. Offline or any odd answer is
+  silence. It downloads and installs nothing; the answer and when it was
+  asked are kept in `release_check.json` beside the preferences.
+- **Cinema 4D: registered plugin IDs.** The helper now runs, and keys
+  each Substance material's data, under 1071572, and its three commands
+  (BC Storehouse Material, Re-bake Substance materials, Clean old
+  Substance bakes) are 1071573-1071575, all registered with Maxon. A scene
+  saved before keeps its data under the old 1065041: it is read from there
+  and moved to the new key the next time the material is written. The
+  helper file changed: reinstall it (Settings).
+- **Uninstalling removes the DCC helpers.** The Setup's uninstaller and
+  `uninstall.ps1` now run `BC Storehouse.exe --remove-helpers` first, which
+  takes the Cinema 4D plugin and the Houdini package out of every
+  preferences folder they were installed into (c4dpy's and both Houdini
+  locations included), so they stop loading. Only Storehouse's own files
+  go; a folder is removed only once it is empty.
+- **The release smoke test keeps its evidence and tests the app as
+  shipped.** `tools/smoke_build.py` starts the built app from the caller's
+  environment as it was before the test package was imported, so the
+  suite's offscreen platform, general tagger bars and temporary folders no
+  longer reach it (offscreen only with `--headless`). Its working files sit
+  in one folder of its own, removed when every check passes and kept, as
+  it says, when one fails -- before, the test package deleted them at exit.
+- **The job-queue tests wait for the job, not the clock**: for its
+  completion, the queue's own shutdown, or with a generous limit, so a busy
+  machine cannot fail them (with every job start delayed 3 s, three used to).
+
+## 2.1.3 — 16 October 2026
+
+Substance materials, asked about on 16 October. The plan and what was
+checked are in `docs/PLAN-SUBSTANCE-2026-10-16.md`.
+
+### Added
+
+- **Send a Substance material to Cinema 4D or Houdini.** An asset with an
+  .sbsar goes to the application as the archive itself, opened there --
+  Houdini's Substance archive COP, Cinema 4D's Substance import -- with
+  the baked maps beside it, if it has any, as the fallback. Its real size
+  goes with it. The status line says "sent a Substance material"; nothing
+  goes on the clipboard. "Send material only" is offered for a model that
+  ships an .sbsar. Sending from an offline copy that lacks the archive is
+  refused by name.
+- **In Houdini** the archive is opened with Houdini's own Substance node
+  (no extra install), its maps are baked at 2048 px beside the scene in
+  `tex/storehouse/<asset>/`, and the usual Redshift (or MaterialX)
+  material is built from them. The material carries a "BC Storehouse
+  Substance" section: the Substance network, **Live Substance** (Redshift
+  reads the network directly, so a Substance parameter changes the
+  material as you go -- bake again before a farm render) and **Re-bake
+  maps**. Baked, the scene renders anywhere, even without the helper.
+- **In Cinema 4D** the archive is opened with Cinema 4D's own Substance
+  engine, baked at 2048 px beside the scene the same way, and built as the
+  usual Redshift material; the Substance object is removed again, so the
+  scene renders from files. No live option: Cinema 4D's Substance node
+  gives Redshift the wrong values (a roughness of 0.10 rendered as 0.01).
+- Both: a DirectX normal map is flipped to read right; an opacity that is
+  white everywhere is left out; an unsaved scene bakes to a temporary
+  folder and says so.
+- **What an .sbsar holds, in the panel.** Details show the graph and how
+  many maps and parameters it has ("Bacon · 10 maps · 13 parameters"); the
+  tooltip lists them. Read from the archive's own description, without
+  Substance.
+
+### Fixed
+
+- **.sbs source graphs are recognised.** They are filed as material
+  definitions, like .sbsar and .mtlx, and a folder of them imports under
+  Materials instead of being refused as "cannot tell which category".
+- **Copying or dragging an .sbs takes what it needs to open.** A source
+  graph goes with every other file of the asset -- the graphs and bitmaps it
+  links to -- where a copy used to keep one graph of several. Copy path
+  gives the top-level graph. Assets indexed before this release, which hold
+  .sbs as unrecognised, behave the same.
+- **An .sbsar is handed over on its own even without baked maps beside
+  it.** It already was when maps sat next to it; with only a bitmap or two,
+  a copy handed over everything.
+- **Sending an .sbs source graph says why it can't go.** Neither
+  application opens one: publish it to .sbsar in Substance Designer and
+  send that. It used to land on the clipboard as a "single texture". With
+  baked maps beside it the material is still built from them, as before.
+- **A material's unrecognised files are no longer cut to one.** A drag or
+  copy of a set of maps used to add whichever unrecognised file sorted
+  first; it now hands over the maps. A material of only unrecognised files
+  hands over all of them.
+
+**Update both helpers** (Settings, or "Update helper" when a send asks):
+they open Substance archives now, and this Storehouse sends nothing to a
+helper older than that (HELPER 6).
+
 ## 2.1.2 — 16 October 2026
 
 A small follow-up to 2.1.1, from the same tester's log.

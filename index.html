@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BC Storehouse</title>
-<meta name="description" content="Download BC Storehouse 2.0 for Windows: the studio asset library for materials, HDRIs, models, setups, HDAs and courses, with sends to Cinema 4D and Houdini.">
+<meta name="description" content="Download BC Storehouse 2.1.4 for Windows: the studio asset library for materials, HDRIs, models, setups, HDAs and courses, with sends to Cinema 4D and Houdini.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,24 +42,25 @@
 
     <aside class="get" aria-labelledby="dl">
       <div class="ver">
-        <strong id="dl">Version 2.1.2</strong>
-        <span>16 October 2026</span>
+        <strong id="dl">Version 2.1.4</strong>
+        <span>20 October 2026</span>
       </div>
-      <a class="button" href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.1.2/BC-Storehouse-Setup-2.1.2.exe">
+      <a class="button" href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.1.4/BC-Storehouse-Setup-2.1.4.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
         Download for Windows
       </a>
       <dl class="facts">
-        <dt>File</dt><dd class="mono">BC-Storehouse-Setup-2.1.2.exe</dd>
-        <dt>Size</dt><dd>77 MB</dd>
+        <dt>File</dt><dd class="mono">BC-Storehouse-Setup-2.1.4.exe</dd>
+        <dt>Size</dt><dd>72.8 MB</dd>
         <dt>Needs</dt><dd>Windows 10 or 11, 64-bit</dd>
         <dt>Admin rights</dt><dd>Not needed</dd>
       </dl>
       <div class="sha">SHA-256
-        <code>a4659b611011807fd7366164a6fe5a274139390fcedb0bd332b751411c8c5f1e</code>
+        <code>0b4fcca6d2391c706d4eecd5da2b0d075c1686fc8d01c271674d3971d0c82fc8</code>
       </div>
       <div class="more">
         <a href="changelog.html">Changelog</a>
+        <a href="https://github.com/indrajitz/bc-storehouse-download/releases/download/v2.1.4/THIRD-PARTY-NOTICES.txt">Third-party notices</a>
         <a href="https://github.com/indrajitz/bc-storehouse-download/releases">All releases</a>
       </div>
     </aside>
@@ -72,8 +73,8 @@
 
       <div class="notice" role="note">
         <div>
-          <h3>Coming from 1.25? Update everyone on a shared library together.</h3>
-          <p>Versions before 1.52 throw away what newer versions record when they save an asset, including where each tag came from and its undo history. Once one person moves to 2.0, nobody else should keep editing that library with 1.25.</p>
+          <h3>Update every shared-library editor to 2.1.4 together.</h3>
+          <p>Upgrade every machine that edits the shared library to 2.1.4, then set its minimum writer version in Settings. Older builds cannot enforce the new write gate. Update both DCC helpers from Settings and restart Cinema 4D and Houdini.</p>
         </div>
       </div>
 
@@ -83,9 +84,9 @@
           <p class="who">You have the shared library on N:</p>
           <ol class="steps">
             <li><span><strong>Run the Setup</strong> and press Install. If the old version is open, Setup offers to close it.</span></li>
-            <li><span><strong>It replaces 1.25 in place</strong>, so your Start menu and desktop shortcuts open 2.0.</span></li>
+            <li><span><strong>It replaces 1.25 in place</strong>, so your Start menu and desktop shortcuts open 2.1.4.</span></li>
             <li><span><strong>Open it.</strong> Your library, tags, kits and notes are where you left them. If it asks for a library, choose the studio library on N:.</span></li>
-            <li><span><strong>Settings: install the Cinema 4D and Houdini helpers again.</strong> Sends work differently in 2.0, and the old helpers don't report back.</span></li>
+            <li><span><strong>Settings: install the Cinema 4D and Houdini helpers again.</strong> This release requires helper 8; update both helpers and restart the DCCs.</span></li>
           </ol>
         </div>
         <div class="path">
@@ -102,14 +103,14 @@
 
       <p class="both"><strong>"Windows protected your PC"?</strong> The Setup isn't code-signed yet. Choose <em>More info</em>, then <em>Run anyway</em>.</p>
       <p class="both"><strong>Updating later:</strong> run the newer Setup over it. <strong>Removing it:</strong> Windows Settings › Apps › BC Storehouse; your library and its index are left alone.</p>
-      <p class="both"><strong>Many machines at once:</strong> <code>BC-Storehouse-Setup-2.1.2.exe /VERYSILENT</code> installs for the signed-in user with no questions.</p>
+      <p class="both"><strong>Many machines at once:</strong> <code>BC-Storehouse-Setup-2.1.4.exe /VERYSILENT</code> installs for the signed-in user with no questions.</p>
     </div>
   </section>
 
   <section id="new">
     <div class="wrap">
       <h2>What's new since 1.25</h2>
-      <p class="sub">Forty-two releases since 25 September, in one download. The <a href="changelog.html">changelog</a> has every one of them.</p>
+      <p class="sub">Updates since 1.25, in one download. The <a href="changelog.html">changelog</a> has every one of them.</p>
 
       <div class="news">
         <div>
@@ -222,7 +223,7 @@
 
 <footer>
   <div class="wrap">
-    <span>BC Storehouse 2.1.2 · Indra – Builders Club</span>
+    <span>BC Storehouse 2.1.4 · Indra – Builders Club</span>
     <span>This repository holds the downloads; the source code is private.</span>
   </div>
 </footer>
