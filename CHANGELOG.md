@@ -6,6 +6,69 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.5 — 24 October 2026
+
+**Update both helpers on every machine** (Settings, Update helper, for
+Cinema 4D and for Houdini), then quit and reopen Cinema 4D and Houdini.
+The helpers are now version 9; older ones are blocked from receiving
+sends until they are updated.
+
+- **Substance sends no longer freeze Cinema 4D.** The bake runs in a
+  background process at low priority while you keep working, and Cinema 4D
+  builds the material from the finished maps in about a second. Re-bake
+  works the same way. If the background process cannot start within a
+  minute it bakes in Cinema 4D as before, and it ends with Cinema 4D if
+  Cinema 4D closes. The material goes on what was selected when you
+  pressed Send, not on whatever is selected when the bake finishes.
+- **Houdini stays usable during a Substance send.** The bake is cooked in
+  small pieces between Houdini's own events: a 4K archive takes as long as
+  before, but Houdini never pauses for more than a few seconds instead of
+  freezing for the whole bake.
+- **Sending the same material again is almost instant.** Each machine keeps
+  the maps it baked (same archive, size and settings) and copies them
+  instead of baking again; scenes always get their own copies, never the
+  cache's. A bake whose inputs were changed while it ran is not kept.
+- **You can see what a send is doing.** The Send card and the status bar
+  say what the helper is on ("swamp water — map 3 of 8 (4K)"); pressing
+  Send again while it builds says "already building" instead of making a
+  second material; a send after a crash is never swallowed by the build
+  that died. Pressing Send never waits on the network.
+- **Saved scenes are safe for the farm.** Cinema 4D switches Live Substance
+  off in every saved file, as Houdini did; scenes saved by 2.1.4 with Live
+  on get the save hook when opened. Saving a scene with a duplicated
+  Substance material no longer deletes maps the copy reads.
+- **Import.** A name typed into a row is kept when Import is pressed at
+  once (no more duplicates under the old name); a re-run of an interrupted
+  bulk import resumes the half-copied asset; the Inbox no longer copies
+  files the library already has; edits made while a large drop is planned
+  survive; big drops and archives no longer freeze the window or get lost
+  mid-plan; Import an archive merges its tags and shows its warnings; every
+  import gets its Substance swatches, which now bake on any Houdini.
+- **Materials.** Houdini MaterialX gets gloss and DirectX normals right and
+  names the maps it cannot use; Cinema 4D no longer loses base colour on
+  some archives, and re-bakes reset values the new plan no longer sets
+  while keeping your own hand edits.
+- **The window fits a laptop.** Minimum size with the asset panel open is
+  now 925 × 366 (was 1,495 × 966); the filter row and selection bar wrap;
+  the left rail and the panel scroll and never scroll sideways. A failed
+  save or tag edit gives the page back instead of leaving it greyed out.
+  Tags no longer disappear right after first-run setup. Quick look closes
+  when the grid refreshes, so a key press cannot send another asset.
+- **Interface fixes.** Table buttons in Organise, Trash and Jobs are no
+  longer cut ("emov"); long paths in Settings no longer push its controls
+  off screen; "&" in button names shows; synonyms can be removed again;
+  the side panel names issue kinds in words.
+- **Data safety.** Two machines importing the same new name at once can no
+  longer merge two products into one folder; `storehouse repair` keeps the
+  roles people chose; removing an offline copy refuses while set-aside
+  edits exist; `init --reset-vocabulary` needs `--yes` and keeps a backup;
+  `backup --restore` refuses a mistyped path.
+- **Install and update.** Updating from the share copies the new version
+  beside the old one and swaps only when complete, so a dropped connection
+  leaves a working app; Setup will not run while BC Storehouse is open;
+  uninstall uses the Setup's own uninstaller; rollback reports a failed
+  install; the app is about 21 MB smaller.
+
 ## 2.1.4 — 20 October 2026
 
 - **Library operation follow-ups.** Publishing inbox items reports every
@@ -41,12 +104,13 @@ Check your version in **Settings**; it is the first thing on the page.
   screen says so too, and an empty library offers **Import…** instead of
   "Nothing here."
 
-- **Questions and warnings are readable in Windows light mode.** Every
-  pop-up -- "Close anyway?", "Apply?", the trash and setup questions --
-  had near-white text on Windows' light-grey dialog colour when Windows
-  apps are set to light mode (its default), so only the buttons showed.
-  Dialogs now take the window's dark surface whatever the Windows theme.
-  Dark mode looked right before and still does.
+- **Readable in Windows light mode.** Every dialog, text box, table and
+  list -- the pop-ups ("Close anyway?", "Apply?", the trash and setup
+  questions) among them -- had near-white text on Windows' light-grey or
+  white background when Windows apps are set to light mode (its default),
+  so the text vanished and only the buttons showed. They now take the
+  window's dark surface whatever the Windows theme. Dark mode looked
+  right before and still does.
 
 - **Removed: the old window (`--tk`) and the web UI.** The Qt window is the
   one UI. Typing `--tk` prints a one-line notice and opens the normal

@@ -26,6 +26,7 @@
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-5" class="new">2.1.5</a>
     <a href="#v2-1-4" class="new">2.1.4</a>
     <a href="#v2-1-3" class="new">2.1.3</a>
     <a href="#v2-1-2" class="new">2.1.2</a>
@@ -110,7 +111,47 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-1-4"><h2>2.1.4 <span class="date">20 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-5"><h2>2.1.5 <span class="date">24 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+<strong>Update both helpers on every machine</strong> (Settings, Update helper, for Cinema 4D and for Houdini), then quit and reopen Cinema 4D and Houdini. The helpers are now version 9; older ones are blocked from receiving sends until they are updated.
+</p>
+<ul>
+<li>
+<strong>Substance sends no longer freeze Cinema 4D.</strong> The bake runs in a background process at low priority while you keep working, and Cinema 4D builds the material from the finished maps in about a second. Re-bake works the same way. If the background process cannot start within a minute it bakes in Cinema 4D as before, and it ends with Cinema 4D if Cinema 4D closes. The material goes on what was selected when you pressed Send, not on whatever is selected when the bake finishes.
+</li>
+<li>
+<strong>Houdini stays usable during a Substance send.</strong> The bake is cooked in small pieces between Houdini's own events: a 4K archive takes as long as before, but Houdini never pauses for more than a few seconds instead of freezing for the whole bake.
+</li>
+<li>
+<strong>Sending the same material again is almost instant.</strong> Each machine keeps the maps it baked (same archive, size and settings) and copies them instead of baking again; scenes always get their own copies, never the cache's. A bake whose inputs were changed while it ran is not kept.
+</li>
+<li>
+<strong>You can see what a send is doing.</strong> The Send card and the status bar say what the helper is on ("swamp water — map 3 of 8 (4K)"); pressing Send again while it builds says "already building" instead of making a second material; a send after a crash is never swallowed by the build that died. Pressing Send never waits on the network.
+</li>
+<li>
+<strong>Saved scenes are safe for the farm.</strong> Cinema 4D switches Live Substance off in every saved file, as Houdini did; scenes saved by 2.1.4 with Live on get the save hook when opened. Saving a scene with a duplicated Substance material no longer deletes maps the copy reads.
+</li>
+<li>
+<strong>Import.</strong> A name typed into a row is kept when Import is pressed at once (no more duplicates under the old name); a re-run of an interrupted bulk import resumes the half-copied asset; the Inbox no longer copies files the library already has; edits made while a large drop is planned survive; big drops and archives no longer freeze the window or get lost mid-plan; Import an archive merges its tags and shows its warnings; every import gets its Substance swatches, which now bake on any Houdini.
+</li>
+<li>
+<strong>Materials.</strong> Houdini MaterialX gets gloss and DirectX normals right and names the maps it cannot use; Cinema 4D no longer loses base colour on some archives, and re-bakes reset values the new plan no longer sets while keeping your own hand edits.
+</li>
+<li>
+<strong>The window fits a laptop.</strong> Minimum size with the asset panel open is now 925 × 366 (was 1,495 × 966); the filter row and selection bar wrap; the left rail and the panel scroll and never scroll sideways. A failed save or tag edit gives the page back instead of leaving it greyed out. Tags no longer disappear right after first-run setup. Quick look closes when the grid refreshes, so a key press cannot send another asset.
+</li>
+<li>
+<strong>Interface fixes.</strong> Table buttons in Organise, Trash and Jobs are no longer cut ("emov"); long paths in Settings no longer push its controls off screen; "&amp;" in button names shows; synonyms can be removed again; the side panel names issue kinds in words.
+</li>
+<li>
+<strong>Data safety.</strong> Two machines importing the same new name at once can no longer merge two products into one folder; <code>storehouse repair</code> keeps the roles people chose; removing an offline copy refuses while set-aside edits exist; <code>init --reset-vocabulary</code> needs <code>--yes</code> and keeps a backup; <code>backup --restore</code> refuses a mistyped path.
+</li>
+<li>
+<strong>Install and update.</strong> Updating from the share copies the new version beside the old one and swaps only when complete, so a dropped connection leaves a working app; Setup will not run while BC Storehouse is open; uninstall uses the Setup's own uninstaller; rollback reports a failed install; the app is about 21 MB smaller.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-1-4"><h2>2.1.4 <span class="date">20 October 2026</span></h2>
 <ul>
 <li>
 <strong>Library operation follow-ups.</strong> Publishing inbox items reports every folder already moved even if a later item fails or the job is cancelled. Preview requests and adoption check the asset identity at the recorded path. Consolidating copied assets preserves kit membership, and course progress follows the library identity when the index moves.
@@ -128,7 +169,7 @@
 <strong>Start a new library from the window.</strong> Choosing a folder that is not a library yet, on first run or in Settings, now offers to set it up — its settings file, a folder per category and the tag list — which before only <code>storehouse init</code> did. Choosing No uses the folder as it is; choosing the folder above a library points you to the library inside. On 2.1.2 a brand-new library also closed the window on opening ("no such table: files"); that was fixed earlier in 2.1.4. <code>storehouse init</code> no longer replaces a <code>_library.json</code> it cannot read — a new identity would cut the library off from its index — it stops and says so. The first screen says so too, and an empty library offers <strong>Import…</strong> instead of "Nothing here."
 </li>
 <li>
-<strong>Questions and warnings are readable in Windows light mode.</strong> Every pop-up — "Close anyway?", "Apply?", the trash and setup questions — had near-white text on Windows' light-grey dialog colour when Windows apps are set to light mode (its default), so only the buttons showed. Dialogs now take the window's dark surface whatever the Windows theme. Dark mode looked right before and still does.
+<strong>Readable in Windows light mode.</strong> Every dialog, text box, table and list — the pop-ups ("Close anyway?", "Apply?", the trash and setup questions) among them — had near-white text on Windows' light-grey or white background when Windows apps are set to light mode (its default), so the text vanished and only the buttons showed. They now take the window's dark surface whatever the Windows theme. Dark mode looked right before and still does.
 </li>
 <li>
 <strong>Removed: the old window (<code>--tk</code>) and the web UI.</strong> The Qt window is the one UI. Typing <code>--tk</code> prints a one-line notice and opens the normal window; <code>storehouse serve</code> is gone.
