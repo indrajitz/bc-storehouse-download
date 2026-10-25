@@ -6,6 +6,62 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.6 — 25 October 2026
+
+Fixes from a whole-library audit of 2.1.5. No helper update is needed
+for sends to keep working (still helper 9), but update both helpers
+anyway to get the Cinema 4D and Houdini fixes below.
+
+- **Switching library no longer edits the old one.** After choosing
+  another library folder in Settings, Organise, Settings, Import, the Edit
+  page and the player kept working on the library they first opened, so a
+  tag rename or a kit change could land in the wrong library. Filters, the
+  undo list and look-alike results from the old library are cleared.
+- **Empty trash deletes only what you confirmed.** It used to delete
+  everything in the trash when the job ran -- including an item a
+  colleague trashed a moment later, or the original an import with Replace
+  had just set aside. It now removes exactly the items it showed you.
+- **Model cards show the model.** About 170 models showed a texture map
+  (a diffuse or bump image from their texture folder) as their card picture;
+  they now show a clay render of the model itself. Real product photos are
+  kept, and nothing in the library is rewritten. Heavy models render solid,
+  not as a speckled outline.
+- **Shared-library edits are no longer lost.** Renaming or removing a tag
+  across many assets no longer overwrites a colleague's tag edit made at
+  the same moment; a rescan no longer misses an asset a colleague imported
+  while it ran, or undoes edits made during it; saved filters and kits keep
+  fields a newer build wrote; deleting a kit while someone adds to it no
+  longer brings it back.
+- **Undo and shortcuts.** Ctrl+Z after Move to trash brings the asset back
+  instead of undoing something earlier. Grid shortcuts (Edit, Delete, send
+  to Cinema 4D or Houdini) only act while the grid is showing, so typing on
+  another page can no longer send or trash an asset you cannot see.
+- **No more freezes on big actions.** Add a version, Add to kit, Restore
+  all and Empty trash run in the background; searching no longer re-reads
+  every kit from the share; importing a whole-library archive takes minutes
+  instead of hours.
+- **Big pictures and first run.** A 16K EXR no longer takes gigabytes of
+  memory to make its thumbnail, a screen of huge images no longer stalls
+  the grid or leaves cards blank, and closing the app no longer hangs on a
+  big decode. Thumbnail caches are capped (2 GB, quick look 1 GB). A
+  brand-new user whose settings cannot be saved, or who picks the folder
+  above a library, gets a clear message instead of a stuck first run.
+- **Cinema 4D.** A Substance material pasted into another scene gets the
+  save hook too, so that scene never saves reading the temporary folder or
+  with Live on. FBX models with recorded units are no longer scaled twice
+  (a metres model arrived 100x too big). A damaged .sbsar can no longer
+  hang Cinema 4D.
+- **Houdini.** Opening or starting another scene in the middle of a send
+  stops that send cleanly and puts it back, instead of marking it built or
+  building the rest into the new scene. Turning Live Substance off keeps a
+  packaged or hand-made texture path. Backup copies no longer move an
+  unsaved bake into the backup folder. Packaging no longer lists the bake
+  folder as a missing file.
+- **Vendor catalog.** One machine's Megascans or GSG folder no longer marks
+  everyone else's records as gone, and two machines publishing at once now
+  merge instead of failing. `storehouse catalog enrich --apply` carries on
+  past an unreadable asset.json.
+
 ## 2.1.5 — 24 October 2026
 
 **Update both helpers on every machine** (Settings, Update helper, for
