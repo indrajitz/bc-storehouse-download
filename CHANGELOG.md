@@ -6,6 +6,61 @@ entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
 
+## 2.1.7 — 27 October 2026
+
+Fixes from a second whole-library audit: four independent review passes
+(security, two-machine data safety, performance, silent failures) over
+2.1.6, with the full suite run against the result. No helper update is
+needed for sends to keep working (still helper 9), but update the Cinema 4D
+helper to get its archive fix.
+
+- **Long messages no longer widen the window.** A Substance send's result
+  runs to hundreds of characters, and the status line grew the window to
+  fit it -- every send made the window wider. The line now shortens what
+  it shows; hover for the whole message, which is in the log as always.
+- **A folder of loose textures imports as several assets again.** Dropped
+  as the textures category, a folder of unrelated images (decals, grunge,
+  references) arrived as one asset named after one of its files, because
+  only material-style sets were ever counted. Distinct images now come
+  apart; a set's suffixed maps, and the 4K and 8K of one texture, still
+  stay together. The Import page's grouping choice also goes back to
+  "Group automatically" when a new list starts, so "Keep together as one
+  asset", picked for an earlier drop, can no longer quietly make the next
+  folder -- of HDRIs, or anything else -- one item.
+- **Emptying the trash can no longer lose files to a restore.** With two
+  machines on one library, Restore during another machine's Empty trash
+  could bring an asset back half-deleted -- some files permanently gone --
+  while both machines reported success. Each entry is now renamed out of
+  sight before anything is deleted, so one side gets the entry whole and
+  the other is told; a crash mid-delete is finished by the next empty.
+- **A changed installer never runs quietly.** Run its installer takes the
+  program's fingerprint before launching and compares it with the last run
+  on this machine: a copy that changed on the share -- an update, or a
+  swap -- runs only after you say the change is expected, and the receipt
+  records what actually ran.
+- **A send that will never answer says so.** When a helper died mid-build
+  or its result could not be written back, the window polled forever and
+  the artist never heard. After two minutes it now says no answer came and
+  names the helper's error log. Sends to a closed application still wait
+  quietly, and long bakes with a live heartbeat are untouched.
+- **Cinema 4D: a crafted .sbsar cannot balloon memory.** The helper's
+  archive reader refuses an oversized encoded header outright, with the
+  same bound and words as the app's own reader.
+- **Keep one of two look-alikes checks again before acting.** An asset
+  replaced under the same folder name while the confirmation was open is
+  refused instead of silently trashed, and a kit that gained the dropped
+  asset meanwhile is repointed too.
+- **A damaged offline copy is no longer invisible.** The Offline page says
+  it is there and how to clear it, and Take offline explains the dead end
+  instead of pointing at a page that could not see it.
+- **Unattended runs report failure.** `storehouse catalog update` -- what
+  Task Scheduler runs -- exits nonzero when every provider failed and
+  nothing was collected, instead of saying success while the team catalog
+  goes stale; `import` and `repair` exit nonzero on partial failure too.
+  Two machines publishing the team catalog at the same moment can no
+  longer drop one machine's records, and pinned/recent lists can no longer
+  be wiped by two programs saving them at once.
+
 ## 2.1.6 — 25 October 2026
 
 Fixes from a whole-library audit of 2.1.5. No helper update is needed

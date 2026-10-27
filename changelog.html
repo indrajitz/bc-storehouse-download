@@ -26,6 +26,7 @@
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-7" class="new">2.1.7</a>
     <a href="#v2-1-6" class="new">2.1.6</a>
     <a href="#v2-1-5" class="new">2.1.5</a>
     <a href="#v2-1-4" class="new">2.1.4</a>
@@ -112,7 +113,41 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-1-6"><h2>2.1.6 <span class="date">25 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-7"><h2>2.1.7 <span class="date">27 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+Fixes from a second whole-library audit: four independent review passes (security, two-machine data safety, performance, silent failures) over 2.1.6, with the full suite run against the result. No helper update is needed for sends to keep working (still helper 9), but update the Cinema 4D helper to get its archive fix.
+</p>
+<ul>
+<li>
+<strong>Long messages no longer widen the window.</strong> A Substance send's result runs to hundreds of characters, and the status line grew the window to fit it — every send made the window wider. The line now shortens what it shows; hover for the whole message, which is in the log as always.
+</li>
+<li>
+<strong>A folder of loose textures imports as several assets again.</strong> Dropped as the textures category, a folder of unrelated images (decals, grunge, references) arrived as one asset named after one of its files, because only material-style sets were ever counted. Distinct images now come apart; a set's suffixed maps, and the 4K and 8K of one texture, still stay together. The Import page's grouping choice also goes back to "Group automatically" when a new list starts, so "Keep together as one asset", picked for an earlier drop, can no longer quietly make the next folder — of HDRIs, or anything else — one item.
+</li>
+<li>
+<strong>Emptying the trash can no longer lose files to a restore.</strong> With two machines on one library, Restore during another machine's Empty trash could bring an asset back half-deleted — some files permanently gone — while both machines reported success. Each entry is now renamed out of sight before anything is deleted, so one side gets the entry whole and the other is told; a crash mid-delete is finished by the next empty.
+</li>
+<li>
+<strong>A changed installer never runs quietly.</strong> Run its installer takes the program's fingerprint before launching and compares it with the last run on this machine: a copy that changed on the share — an update, or a swap — runs only after you say the change is expected, and the receipt records what actually ran.
+</li>
+<li>
+<strong>A send that will never answer says so.</strong> When a helper died mid-build or its result could not be written back, the window polled forever and the artist never heard. After two minutes it now says no answer came and names the helper's error log. Sends to a closed application still wait quietly, and long bakes with a live heartbeat are untouched.
+</li>
+<li>
+<strong>Cinema 4D: a crafted .sbsar cannot balloon memory.</strong> The helper's archive reader refuses an oversized encoded header outright, with the same bound and words as the app's own reader.
+</li>
+<li>
+<strong>Keep one of two look-alikes checks again before acting.</strong> An asset replaced under the same folder name while the confirmation was open is refused instead of silently trashed, and a kit that gained the dropped asset meanwhile is repointed too.
+</li>
+<li>
+<strong>A damaged offline copy is no longer invisible.</strong> The Offline page says it is there and how to clear it, and Take offline explains the dead end instead of pointing at a page that could not see it.
+</li>
+<li>
+<strong>Unattended runs report failure.</strong> <code>storehouse catalog update</code> — what Task Scheduler runs — exits nonzero when every provider failed and nothing was collected, instead of saying success while the team catalog goes stale; <code>import</code> and <code>repair</code> exit nonzero on partial failure too. Two machines publishing the team catalog at the same moment can no longer drop one machine's records, and pinned/recent lists can no longer be wiped by two programs saving them at once.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-1-6"><h2>2.1.6 <span class="date">25 October 2026</span></h2>
 <p>
 Fixes from a whole-library audit of 2.1.5. No helper update is needed for sends to keep working (still helper 9), but update both helpers anyway to get the Cinema 4D and Houdini fixes below.
 </p>
