@@ -1,10 +1,77 @@
 # Changelog
 
+## Unreleased
+
+- **Third-party notices and a harder release.** The app and the Setup now
+  carry `THIRD-PARTY-NOTICES.txt` (Qt/PySide6 and FFmpeg under the LGPL with
+  where to get their source, Python, OpenSSL, DirectML, the Geist fonts'
+  OFL, every bundled package), generated from what each build contains and
+  shown on the Setup's information page. Builds are pinned to
+  `requirements-lock.txt` (exact versions and wheel hashes) and checked
+  against it; `releases\X.json` records the Python, every package and the
+  SHA-256 of the exe and the Setup. A release now smoke-tests the frozen
+  app, fails if the Setup does not build, puts the version stamps back on
+  any failure, and commits only the stamped files. The picture model copied
+  from the share is checked against its SHA-256 like a download.
+  `docs/RELEASE-CHECKLIST.md` has the steps.
+
+- **Design reference completion pass.** Connected kit membership, project
+  copying and export; added batch organise actions, separate favourites,
+  course completion/resume, saved display preferences, Restore all, model
+  turntable/preview controls, and jobs/health diagnostics. Library controls
+  now fit alongside the inspector. `DESIGN-COVERAGE.md` records remaining
+  gaps across all 19 reference screens. Verified with 582 tests and a
+  subsequent 26-test layout/design run.
+
+- **Studio workspace.** Dark Library/Collections navigation, category sidebar and subcategory pills,
+  larger preview cards, blue selection outlines, and a responsive selection
+  toolbar. Clicking a card still opens the right-hand asset inspector;
+  multiple selections show batch details. Selected previews can be reviewed
+  with the existing local AI tagger before applying suggestions.
+
+- **Compact studio UI.** Clearer library headings, grouped filters, denser
+  asset cards, and a slimmer inspector with a close control. Maintenance
+  actions stay visible in the sidebar footer. The tag editor separates chosen
+  tags from AI suggestions, wraps long tag lists, and expands the full
+  vocabulary on demand.
+
 What changed in each build, and why. Written for whoever has to work out
 whether the version they are running explains what they are seeing — so the
 entries say what you would notice, not what the diff said.
 
 Check your version in **Settings**; it is the first thing on the page.
+
+Every released build is kept under `releases/`, so any of these can be put
+back in one step:
+
+    rollback.bat          list the builds there are
+    rollback.bat 1.3.0    put that one back and install it
+
+---
+
+## 2.1.8 — 27 October 2026
+
+Same-day follow-ups to 2.1.7, all from use. No helper changes (still
+helper 9).
+
+- **An asset whose only image is itself gets a picture.** An HDRI that is
+  only its .hdr -- or anything whose single image is the asset itself --
+  showed no card picture at all: only a declared preview or a basecolor
+  map was ever considered. The card and side panel now fall back to the
+  asset's own best image (a tonemapped picture first, then the HDR; a
+  data map only when there is nothing else). Display only: nothing on
+  disk changes, so existing assets gain their picture too.
+- **The side panel fits short windows.** Its picture shrinks when the
+  window is short; a fixed 300 px picture pushed Send to and Use it below
+  the fold, which read as the panel being cut off.
+- **Two more import-splitting gaps.** A loose texture whose name carries
+  a map word (rusty_metal) was not counted, so a pair like old_paper +
+  rusty_metal still arrived as one asset; every picture now counts,
+  folded by base name, and real sets still stay together. And a stray
+  license.txt or readme.txt in a flat pile became its own junk "license"
+  asset (materials and HDRI piles too, from before 2.1.7): it now rides
+  into every asset split from the pile, so each stays self-contained
+  with its licence.
 
 ## 2.1.7 — 27 October 2026
 

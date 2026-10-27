@@ -26,6 +26,7 @@
 </header>
 <main class="wrap log">
   <aside aria-label="Versions">
+    <a href="#v2-1-8" class="new">2.1.8</a>
     <a href="#v2-1-7" class="new">2.1.7</a>
     <a href="#v2-1-6" class="new">2.1.6</a>
     <a href="#v2-1-5" class="new">2.1.5</a>
@@ -113,7 +114,23 @@
     <h1>Changelog</h1>
     <p>What changed in each build, and why. Written for whoever has to work out whether the version they are running explains what they are seeing — so the entries say what you would notice, not what the diff said.</p><p>Check your version in <strong>Settings</strong>; it is the first thing on the page.</p>
     <p><a href="./">Download the latest version</a> · versions in blue are new since 1.25.0.</p>
-<div class="entry" id="v2-1-7"><h2>2.1.7 <span class="date">27 October 2026</span><span class="pill">Latest</span></h2>
+<div class="entry" id="v2-1-8"><h2>2.1.8 <span class="date">27 October 2026</span><span class="pill">Latest</span></h2>
+<p>
+Same-day follow-ups to 2.1.7, all from use. No helper changes (still helper 9).
+</p>
+<ul>
+<li>
+<strong>An asset whose only image is itself gets a picture.</strong> An HDRI that is only its .hdr — or anything whose single image is the asset itself — showed no card picture at all: only a declared preview or a basecolor map was ever considered. The card and side panel now fall back to the asset's own best image (a tonemapped picture first, then the HDR; a data map only when there is nothing else). Display only: nothing on disk changes, so existing assets gain their picture too.
+</li>
+<li>
+<strong>The side panel fits short windows.</strong> Its picture shrinks when the window is short; a fixed 300 px picture pushed Send to and Use it below the fold, which read as the panel being cut off.
+</li>
+<li>
+<strong>Two more import-splitting gaps.</strong> A loose texture whose name carries a map word (rusty_metal) was not counted, so a pair like old_paper + rusty_metal still arrived as one asset; every picture now counts, folded by base name, and real sets still stay together. And a stray license.txt or readme.txt in a flat pile became its own junk "license" asset (materials and HDRI piles too, from before 2.1.7): it now rides into every asset split from the pile, so each stays self-contained with its licence.
+</li>
+</ul>
+</div>
+<div class="entry" id="v2-1-7"><h2>2.1.7 <span class="date">27 October 2026</span></h2>
 <p>
 Fixes from a second whole-library audit: four independent review passes (security, two-machine data safety, performance, silent failures) over 2.1.6, with the full suite run against the result. No helper update is needed for sends to keep working (still helper 9), but update the Cinema 4D helper to get its archive fix.
 </p>
